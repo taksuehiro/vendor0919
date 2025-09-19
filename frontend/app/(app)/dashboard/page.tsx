@@ -16,8 +16,13 @@ export default function DashboardPage() {
     try {
       const response = await getProtectedData();
       setApiResponse(response);
-    } catch (error) {
-      setApiResponse({ error: error.message });
+      
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setApiResponse({ error: error.message });
+      } else {
+        setApiResponse({ error: String(error) });
+      }
     } finally {
       setIsLoading(false);
     }
