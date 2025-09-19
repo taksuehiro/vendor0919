@@ -60,7 +60,7 @@ const handler = NextAuth({
           session.user.id = token.id as string
         }
         // セッションにaccessTokenを追加
-        (session as any).accessToken = token.accessToken
+        session.accessToken = token.accessToken
       }
       return session
     }
