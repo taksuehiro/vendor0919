@@ -35,8 +35,12 @@ export default function SearchPage() {
     try {
       const response = await searchDocuments(query, k, useMmr);
       setResult(response);
-    } catch (error) {
-      setError(error.message || "検索中にエラーが発生しました。");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message || "検索中にエラーが発生しました。");
+      } else {
+        setError("検索中にエラーが発生しました。");
+      }
     } finally {
       setIsLoading(false);
     }
